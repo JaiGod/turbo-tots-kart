@@ -23,10 +23,8 @@ A low-poly **3D kart racer** made in **Godot 4**, with 4 tracks, 6 drivers, drif
 | Title screen | Racing on Sunny Sandbox |
 |:---:|:---:|
 | ![Title screen](docs/screenshots/title.jpg) | ![Racing](docs/screenshots/race.jpg) |
-| **Drift sparks charging** | **Choose your driver** |
-| ![Drifting](docs/screenshots/drift.jpg) | ![Driver select](docs/screenshots/drivers.jpg) |
-
-<p align="center"><img src="docs/screenshots/mobile.jpg" width="260" alt="Phone with touch controls"><br><sub>📱 Phone (390px wide): auto-gas and big touch buttons</sub></p>
+| **Choose your driver** | **Phone (touch controls)** |
+| ![Driver select](docs/screenshots/drivers.jpg) | <img src="docs/screenshots/mobile.jpg" width="220" alt="Phone with touch controls"> |
 
 ## ✨ Features
 
@@ -127,7 +125,7 @@ Source folders: [`scripts/`](scripts) · [`tests/`](tests) · [`web/`](web) · [
 - **Bug fix: invisible menus on the web.** The first web build showed the 3D scene but no menus, and the minimap was stuck in the corner. The UI controls used `set_anchors_preset(FULL_RECT)`, which keeps the current (zero) size, so the menu ScrollContainer was 0 px tall and clipped everything. Switching to `set_anchors_and_offsets_preset` fixed every screen.
 - **Bug fix: squashed title.** The "TURBO TOTS" letters are separate animated Labels in an HBox. With autowrap on they shrank to zero width and stacked on top of each other, so I turned autowrap off for those letters.
 - **Web build.** It uses the Compatibility renderer and threads off, so it runs on plain GitHub Pages. The landing page lives at `/` and the game at `/play/`.
-- **Beta tested on the live site ✅ (2026-11-05)**
+- **Beta tested on the live site ✅ (2026-11-05)**: /play/ boots past the loading bar, title, driver select and a Grand Prix race on Sunny Sandbox run with keyboard input, pause works, and there are 0 console errors. The title, driver and race screenshots were captured from the live Pages build.
 
 ## 🔗 Links
 
