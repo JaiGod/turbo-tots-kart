@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turbo Tots Kart - low-poly kart racer</title>
+<meta name="description" content="Tiny drivers, huge drifts. A low-poly 3D kart racer made in Godot 4: 4 tracks, 6 drivers, drift boosts, 6 power-ups, Grand Prix and ghost time trials. Play free in your browser.">
+<meta name="theme-color" content="#1e0f4a">
+<link rel="icon" href="play/index.icon.png">
+<style>
+:root{--bg:#1e0f4a;--bg2:#2b1766;--panel:#2a1a63;--line:#4a3596;--ink:#fff8ec;--dim:#cbbcf5;--orange:#ff7a2e;--gold:#ffd84a;--blue:#3d9bff;--green:#58c84a;--pink:#ff7ec0;--purple:#a46bff}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 16px 48px}
+header{text-align:center;padding:56px 0 20px}
+.eyebrow{letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-size:12px;font-weight:700}
+h1{font-size:clamp(44px,11vw,92px);line-height:.95;margin:14px 0 6px;font-weight:900;letter-spacing:.02em}
+h1 span{display:inline-block;text-shadow:0 5px 0 #120838,0 0 0 #000;-webkit-text-stroke:2px #120838;animation:bob 2.4s ease-in-out infinite}
+h1 .k{display:block;color:#fff;letter-spacing:.3em;font-size:.7em;margin-top:6px;animation:none}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-2deg)}}
+.tag{color:var(--gold);font-size:clamp(17px,4vw,22px);font-weight:700;margin:6px 0 26px}
+.play{display:inline-flex;align-items:center;gap:12px;padding:18px 42px;font-size:22px;font-weight:900;color:#2a0f00;background:var(--orange);border-radius:18px;text-decoration:none;box-shadow:0 7px 0 #a8410c,0 12px 30px #ff7a2e55;letter-spacing:.04em;transition:transform .12s}
+.play:hover{transform:translateY(-3px)}
+.play:active{transform:translateY(4px);box-shadow:0 2px 0 #a8410c}
+.sub{margin-top:18px;color:var(--dim);font-size:14px}
+.sub a,footer a,td a{color:var(--gold)}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:34px 0}
+.shots img{width:100%;display:block;border:3px solid var(--gold);border-radius:14px;box-shadow:0 8px 0 #120838}
+h2{color:var(--gold);font-size:24px;margin:42px 0 12px;font-weight:900}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--panel);border:2px solid var(--line);border-top:5px solid var(--c,var(--orange));border-radius:14px;padding:14px 16px}
+.card b{color:var(--c,var(--orange));font-size:17px}
+.card p{margin:6px 0 0;color:var(--dim);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--panel);border:2px solid var(--c);border-radius:999px;padding:4px 14px;font-size:14px;font-weight:700}
+.chip i{font-style:normal;color:var(--dim);font-weight:400}
+table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:14px;overflow:hidden}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top;font-size:15px}
+td:first-child{color:var(--gold);font-weight:700;white-space:nowrap;width:1%}
+kbd{background:#120838;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:var(--ink)}
+footer{margin-top:48px;text-align:center;color:var(--dim);font-size:14px}
+@media (max-width:520px){td{display:block;width:auto}td:first-child{border-top:1px solid var(--line);padding-bottom:0}td+td{border-top:0}.play{padding:16px 30px;font-size:20px}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<main>
+<header>
+  <div class="eyebrow">Godot 4 · low-poly 3D kart racer</div>
+  <h1><span style="color:#ff6a4d">TURBO</span> <span style="color:#ffd84a;animation-delay:.3s">TOTS</span><span class="k">KART</span></h1>
+  <p class="tag">Tiny drivers. Huge drifts.</p>
+  <a class="play" href="play/">&#9654; PLAY IN BROWSER</a>
+  <div class="sub">Free · desktop &amp; phone · keyboard, gamepad or touch · <a href="https://github.com/JaiGod/turbo-tots-kart">source on GitHub</a></div>
+</header>
+
+<section class="shots">
+  <img src="screenshots/title.jpg" alt="Turbo Tots Kart title screen" loading="lazy" onerror="this.remove()">
+  <img src="screenshots/race.jpg" alt="Racing on Sunny Sandbox" loading="lazy" onerror="this.remove()">
+  <img src="screenshots/drift.jpg" alt="Drifting with boost sparks" loading="lazy" onerror="this.remove()">
+</section>
+
+<h2>Features</h2>
+<div class="grid">
+  <div class="card" style="--c:var(--orange)"><b>Drift boosts</b><p>Hold drift through a corner to charge blue, orange, then purple sparks. Let go for a turbo. Nail the countdown for a Rocket Start.</p></div>
+  <div class="card" style="--c:var(--gold)"><b>Grand Prix</b><p>Race all 4 tracks for points (10-8-6-4-2-1). Finish in the top 3 overall to win a trophy at the ceremony.</p></div>
+  <div class="card" style="--c:var(--blue)"><b>Time trial + ghost</b><p>Set a record and your ghost is saved. Next time you race against your own see-through best lap.</p></div>
+  <div class="card" style="--c:var(--green)"><b>5 AI rivals</b><p>The AI follows racing lines, drifts, uses items and rubber-bands gently, so races stay close.</p></div>
+  <div class="card" style="--c:var(--pink)"><b>Touch controls</b><p>Auto-gas with big on-screen steer, drift, brake and item buttons (multi-touch). Phones work in portrait or landscape.</p></div>
+  <div class="card" style="--c:var(--purple)"><b>All made in code</b><p>Karts, tracks, scenery, UI art and sound effects are generated at runtime. There are no image or audio files.</p></div>
+</div>
+
+<h2>4 tracks</h2>
+<div class="chips">
+  <span class="chip" style="--c:#58c84a">Sunny Sandbox <i>park</i></span>
+  <span class="chip" style="--c:#ff7ec0">Candy Canyon <i>hills</i></span>
+  <span class="chip" style="--c:#8fd0ff">Frosty Fort <i>snow</i></span>
+  <span class="chip" style="--c:#a46bff">Starlight Speedway <i>figure-eight with a bridge</i></span>
+</div>
+
+<h2>6 drivers</h2>
+<div class="chips">
+  <span class="chip" style="--c:#ff7a2e">Pip <i>all-rounder</i></span>
+  <span class="chip" style="--c:#3d9bff">Bolt <i>top speed</i></span>
+  <span class="chip" style="--c:#ff7ec0">Mochi <i>acceleration</i></span>
+  <span class="chip" style="--c:#73bf40">Rumble <i>heavyweight</i></span>
+  <span class="chip" style="--c:#a46bff">Zuzu <i>handling</i></span>
+  <span class="chip" style="--c:#ffd84a">Nova <i>turbo tinkerer</i></span>
+</div>
+
+<h2>6 power-ups</h2>
+<div class="chips">
+  <span class="chip" style="--c:#ff5a4a">Rocket Pop <i>turbo</i></span>
+  <span class="chip" style="--c:#3d9bff">Bounce Ball <i>ricochet shot</i></span>
+  <span class="chip" style="--c:#58c84a">Goo Puddle <i>trap</i></span>
+  <span class="chip" style="--c:#ffd84a">Buzz Bee <i>homing</i></span>
+  <span class="chip" style="--c:#8fd0ff">Bubble Shield <i>blocks a hit</i></span>
+  <span class="chip" style="--c:#a46bff">Magnet Mitten <i>tow</i></span>
+</div>
+
+<h2>Controls</h2>
+<table>
+<tr><td>Keyboard</td><td><kbd>W</kbd>/<kbd>&uarr;</kbd> gas · <kbd>S</kbd>/<kbd>&darr;</kbd> brake · <kbd>A</kbd><kbd>D</kbd>/<kbd>&larr;</kbd><kbd>&rarr;</kbd> steer · <kbd>Space</kbd>/<kbd>Shift</kbd> drift · <kbd>E</kbd>/<kbd>J</kbd> item · <kbd>Esc</kbd>/<kbd>P</kbd> pause · <kbd>M</kbd> mute</td></tr>
+<tr><td>Gamepad</td><td>RT gas · LT brake · stick steer · RB drift · X/LB item · Start pause</td></tr>
+<tr><td>Touch</td><td>Gas is automatic. Steer &lt; &gt; on the left, DRIFT / BRAKE / ITEM on the right. Tap II to pause.</td></tr>
+</table>
+
+<footer>
+  Made by Jaineil Rana (JaKing) · part of <a href="https://github.com/JaiGod">JaiGod</a> ·
+  <a href="https://github.com/JaiGod/turbo-tots-kart">GitHub repo</a> · MIT License
+</footer>
+</main>
+<script>
+(function(){
+  var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,t=0,dots=[];
+  var cols=['#ff7a2e','#ffd84a','#3d9bff','#58c84a','#ff7ec0','#a46bff'];
+  function size(){W=c.width=innerWidth;H=c.height=innerHeight;dots=[];
+    for(var i=0;i<40;i++)dots.push({x:Math.random()*W,y:Math.random()*H,r:2+Math.random()*4,s:.3+Math.random()*1.2,c:cols[i%6]});}
+  function f(){t+=1;var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2b1766');g.addColorStop(1,'#140838');x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle='#ffffff10';x.lineWidth=36;
+    for(var k=-2;k<6;k++){x.beginPath();for(var px=0;px<=W;px+=20){var py=H*(k/4)+Math.sin(px/180+t/90+k)*40;px?x.lineTo(px,py):x.moveTo(px,py);}x.stroke();}
+    dots.forEach(function(d){d.x+=d.s*2;if(d.x>W+10)d.x=-10;x.globalAlpha=.55;x.fillStyle=d.c;x.beginPath();x.arc(d.x,d.y,d.r,0,7);x.fill();});
+    x.globalAlpha=1;requestAnimationFrame(f);}
+  addEventListener('resize',size);size();f();
+})();
+</script>
+</body>
+</html>
